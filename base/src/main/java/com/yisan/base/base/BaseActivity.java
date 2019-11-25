@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.yisan.base.annotation.ViewLayoutInject;
-import com.yisan.base.mvp.view.LifeCircleMvpActivity;
+import com.yisan.mvp.view.LifeCircleMvpActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -1,7 +1,8 @@
 package com.yisan.sample.mvp.view;
 
-import com.yisan.base.mvp.ILifeCircle;
-import com.yisan.base.mvp.IMvpView;
+
+import com.yisan.mvp.ILifeCircle;
+import com.yisan.mvp.IMvpView;
 
 /**
  * @author：wzh

@@ -2,8 +2,8 @@ package com.yisan.sample.mvp.presenter;
 
 import android.util.Log;
 
-import com.yisan.base.mvp.base.AbstractBaseMvpPresenter;
 import com.yisan.base.timer.CustomCountDownTimer;
+import com.yisan.mvp.base.BaseMvpPresenter;
 import com.yisan.sample.mvp.view.ISplashActivityContract;
 
 /**
@@ -12,7 +12,7 @@ import com.yisan.sample.mvp.view.ISplashActivityContract;
  * @packageName: com.yisan.sample.mvp.presenter
  * @date：2019/11/24 0024 下午 10:25
  */
-public class SplashActivityTimerPresenter extends AbstractBaseMvpPresenter<ISplashActivityContract.IView> implements ISplashActivityContract.IPresenter {
+public class SplashActivityTimerPresenter extends BaseMvpPresenter<ISplashActivityContract.IView> implements ISplashActivityContract.IPresenter {
     private static final String TAG = "wzh_TimerPrestener";
 
     /**

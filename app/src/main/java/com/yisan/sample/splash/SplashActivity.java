@@ -1,4 +1,4 @@
-package com.yisan.sample.activity;
+package com.yisan.sample.splash;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -9,6 +9,7 @@ import android.widget.VideoView;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.BaseActivity;
 import com.yisan.sample.R;
+import com.yisan.sample.main.MainActivity;
 import com.yisan.sample.mvp.presenter.SplashActivityTimerPresenter;
 import com.yisan.sample.mvp.view.ISplashActivityContract;
 

@@ -1,4 +1,4 @@
-package com.yisan.sample.activity;
+package com.yisan.sample.main;
 
 import android.content.Context;
 import android.content.Intent;
