@@ -2,18 +2,15 @@ package com.yisan.sample.activity;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import androidx.annotation.Nullable;
-
-import com.yisan.base.BaseActivity;
 import com.yisan.base.annotation.ViewLayoutInject;
-import com.yisan.sample.MainActivity;
+import com.yisan.base.base.BaseActivity;
 import com.yisan.sample.R;
-import com.yisan.sample.mvp.presenter.TimerPrestener;
+import com.yisan.sample.mvp.presenter.SplashActivityTimerPresenter;
+import com.yisan.sample.mvp.view.ISplashActivityContract;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,12 +19,12 @@ import butterknife.OnClick;
  * @author：wzh
  * @description: 闪屏页
  * @packageName: com.yisan.sample.activity
- * @date：2019/11/24 0024 上午 11:15
+ * @date：2019/11/24 上午 11:15
  */
 @ViewLayoutInject(value = R.layout.activity_splash)
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements ISplashActivityContract.IView {
 
-    private static final String TAG = "SplashActivity";
+    private static final String TAG = "wzh_SplashActivity";
 
     @BindView(R.id.video_view)
     VideoView mVideoView;
@@ -39,12 +36,8 @@ public class SplashActivity extends BaseActivity {
      */
     private MediaPlayer mMediaPlayer;
 
-    private TimerPrestener timerPrestener;
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void afterBindView() {
 
         initVideoView();
         initListener();
@@ -53,8 +46,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initTimerPresenter() {
-        timerPrestener = new TimerPrestener(this);
-        timerPrestener.initTimer();
+        ISplashActivityContract.IPresenter timerPresenter = new SplashActivityTimerPresenter(this);
+        timerPresenter.initTimer();
     }
 
 
@@ -100,11 +93,6 @@ public class SplashActivity extends BaseActivity {
             //释放资源
             mVideoView.suspend();
         }
-
-        if (timerPrestener != null) {
-            timerPrestener.cancle();
-        }
-
     }
 
 
@@ -115,7 +103,8 @@ public class SplashActivity extends BaseActivity {
     }
 
 
-    public void setText(String s) {
-        mTvJumpToMain.setText(s);
+    @Override
+    public void setTvTimer(String str) {
+        mTvJumpToMain.setText(str);
     }
 }

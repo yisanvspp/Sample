@@ -29,7 +29,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:configChanges="fontScale|density|screenSize|keyboard|keyboardHidden|orientation" />
 
     </application>

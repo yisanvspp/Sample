@@ -1,11 +1,11 @@
-package com.yisan.sample;
+package com.yisan.sample.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.yisan.base.BaseActivity;
 import com.yisan.base.annotation.ViewLayoutInject;
+import com.yisan.base.base.BaseActivity;
+import com.yisan.sample.R;
 
 /**
  * 主页
@@ -24,9 +24,9 @@ public class MainActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void afterBindView() {
 
     }
 }

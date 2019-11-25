@@ -1,11 +1,11 @@
-package com.yisan.base;
+package com.yisan.base.base;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.yisan.base.annotation.ViewLayoutInject;
+import com.yisan.base.mvp.view.LifeCircleMvpActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -18,7 +18,7 @@ import butterknife.Unbinder;
  * @packageName: com.yisan.base
  * @date：2019/11/24 0024 下午 1:43
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends LifeCircleMvpActivity {
 
 
     private Unbinder bind;
@@ -38,8 +38,8 @@ public class BaseActivity extends AppCompatActivity {
             int layoutId = annotation.value();
             if (layoutId > 0) {
                 setContentView(layoutId);
-                //butterKnife必须在setContentView方法之后执行-或者重写setContentView方法
-                bind = ButterKnife.bind(this);
+                bindView();
+                afterBindView();
             } else {
                 throw new RuntimeException("layoutId is null ,please check layoutId");
             }
@@ -76,5 +76,16 @@ public class BaseActivity extends AppCompatActivity {
 
         return false;
     }
+
+
+    private void bindView() {
+        //butterKnife必须在setContentView方法之后执行-或者重写setContentView方法
+        bind = ButterKnife.bind(this);
+    }
+
+    /**
+     * 绑定控件之后执行
+     */
+    protected abstract void afterBindView();
 
 }
