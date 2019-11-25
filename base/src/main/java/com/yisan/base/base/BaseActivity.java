@@ -1,5 +1,7 @@
 package com.yisan.base.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -87,5 +89,14 @@ public abstract class BaseActivity extends LifeCircleMvpActivity {
      * 绑定控件之后执行
      */
     protected abstract void afterBindView();
+
+
+    protected Context getContext() {
+        return getActivity();
+    }
+
+    protected Activity getActivity() {
+        return this;
+    }
 
 }

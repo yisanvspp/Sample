@@ -35,5 +35,8 @@ dependencies {
 
     api 'org.greenrobot:eventbus:3.1.1'
 
+    //高斯模糊的view
+    api 'com.github.mmin18:realtimeblurview:1.1.2'
+
     implementation project(":mvp")
 }
