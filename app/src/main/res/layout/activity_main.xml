@@ -25,14 +25,6 @@
             android:paddingBottom="3dp">
 
 
-            <TextView
-                android:id="@+id/tv_bb_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="首页"
-                android:textColor="@color/text_third"
-                android:textSize="10dp" />
 
             <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_home"
@@ -45,6 +37,15 @@
                 android:tint="@color/fourth"
                 app:piv_basics="height"
                 app:piv_percent="1" />
+
+            <TextView
+                android:id="@+id/tv_bb_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="首页"
+                android:textColor="@color/text_third"
+                android:textSize="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,14 +59,6 @@
             android:paddingBottom="3dp">
 
 
-            <TextView
-                android:id="@+id/tv_bb_knowledge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="体系"
-                android:textColor="@color/text_third"
-                android:textSize="10dp" />
 
             <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_knowledge"
@@ -78,6 +71,15 @@
                 android:tint="@color/fourth"
                 app:piv_basics="height"
                 app:piv_percent="1" />
+
+            <TextView
+                android:id="@+id/tv_bb_knowledge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="体系"
+                android:textColor="@color/text_third"
+                android:textSize="10dp" />
 
         </LinearLayout>
 
@@ -92,14 +94,6 @@
             android:paddingBottom="3dp">
 
 
-            <TextView
-                android:id="@+id/tv_bb_wechat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="公众号"
-                android:textColor="@color/text_third"
-                android:textSize="10dp" />
 
             <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_wechat"
@@ -112,6 +106,15 @@
                 android:tint="@color/fourth"
                 app:piv_basics="height"
                 app:piv_percent="1" />
+
+            <TextView
+                android:id="@+id/tv_bb_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="公众号"
+                android:textColor="@color/text_third"
+                android:textSize="10dp" />
 
         </LinearLayout>
 
@@ -126,14 +129,6 @@
             android:paddingBottom="3dp">
 
 
-            <TextView
-                android:id="@+id/tv_bb_project"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="项目"
-                android:textColor="@color/text_third"
-                android:textSize="10dp" />
 
             <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_project"
@@ -146,6 +141,15 @@
                 android:tint="@color/fourth"
                 app:piv_basics="height"
                 app:piv_percent="1" />
+
+            <TextView
+                android:id="@+id/tv_bb_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="项目"
+                android:textColor="@color/text_third"
+                android:textSize="10dp" />
 
         </LinearLayout>
 
@@ -160,14 +164,6 @@
             android:paddingBottom="3dp">
 
 
-            <TextView
-                android:id="@+id/tv_bb_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:text="我的"
-                android:textColor="@color/text_third"
-                android:textSize="10dp" />
 
             <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_mine"
@@ -181,10 +177,18 @@
                 app:piv_basics="height"
                 app:piv_percent="1" />
 
+            <TextView
+                android:id="@+id/tv_bb_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="我的"
+                android:textColor="@color/text_third"
+                android:textSize="10dp" />
+
         </LinearLayout>
 
     </LinearLayout>
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

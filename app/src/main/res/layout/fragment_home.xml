@@ -10,7 +10,6 @@
         android:id="@+id/ys_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:ys_autoImmersion="true"
         app:ys_bottomLineColor="@color/colorJumpToMain"
         app:ys_bottomLineHeight="1px"
         app:ys_clickToFinish="@id/iv_finish"
