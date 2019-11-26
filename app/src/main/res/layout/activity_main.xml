@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.MainActivity">
 
-
     <LinearLayout
         android:id="@+id/ll_bb"
         android:layout_width="match_parent"
@@ -25,6 +24,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp">
 
+
             <TextView
                 android:id="@+id/tv_bb_home"
                 android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
                 android:textColor="@color/text_third"
                 android:textSize="10dp" />
 
-            <com.yisan.base.view.PercentImageView
+            <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_home"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -45,7 +45,6 @@
                 android:tint="@color/fourth"
                 app:piv_basics="height"
                 app:piv_percent="1" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -58,6 +57,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp">
 
+
             <TextView
                 android:id="@+id/tv_bb_knowledge"
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:textColor="@color/text_third"
                 android:textSize="10dp" />
 
-            <com.yisan.base.view.PercentImageView
+            <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_knowledge"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -91,6 +91,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp">
 
+
             <TextView
                 android:id="@+id/tv_bb_wechat"
                 android:layout_width="wrap_content"
@@ -100,7 +101,7 @@
                 android:textColor="@color/text_third"
                 android:textSize="10dp" />
 
-            <com.yisan.base.view.PercentImageView
+            <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_wechat"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -124,6 +125,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp">
 
+
             <TextView
                 android:id="@+id/tv_bb_project"
                 android:layout_width="wrap_content"
@@ -133,7 +135,7 @@
                 android:textColor="@color/text_third"
                 android:textSize="10dp" />
 
-            <com.yisan.base.view.PercentImageView
+            <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_project"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -157,6 +159,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp">
 
+
             <TextView
                 android:id="@+id/tv_bb_mine"
                 android:layout_width="wrap_content"
@@ -166,7 +169,7 @@
                 android:textColor="@color/text_third"
                 android:textSize="10dp" />
 
-            <com.yisan.base.view.PercentImageView
+            <com.yisan.base_ui.percent_imageview.PercentImageView
                 android:id="@+id/iv_bb_mine"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -189,7 +192,6 @@
         android:layout_height="match_parent"
         android:overScrollMode="never"
         android:scrollbars="none" />
-
 
     <com.github.mmin18.widget.RealtimeBlurView
         android:layout_width="match_parent"

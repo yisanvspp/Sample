@@ -32,11 +32,17 @@
             android:name=".main.MainActivity"
             android:configChanges="fontScale|density|screenSize|keyboard|keyboardHidden|orientation" />
 
+
+        <activity
+            android:name="com.yisan.aop.activity.PermissionActivity"
+            android:configChanges="fontScale|density|screenSize|keyboard|keyboardHidden|orientation" />
+
     </application>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ManifestOrder" />

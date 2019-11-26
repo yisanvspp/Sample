@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Sample</string>
+    <string name="main_home_fragment_title">home</string>
+    <string name="common_btn_more">更多</string>
+    <string name="main_wx_fragment_title">公众号</string>
+    <string name="main_project_fragment_title">项目</string>
+    <string name="main_mine_fragment_title">我的</string>
+    <string name="main_know_fragment_title">体系</string>
 </resources>

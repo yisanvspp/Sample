@@ -1,4 +1,4 @@
-package com.yisan.base.view;
+package com.yisan.base_ui.percent_imageview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,13 +7,13 @@ import android.util.AttributeSet;
 import androidx.annotation.IntDef;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.yisan.base.R;
+import com.yisan.base_ui.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static com.yisan.base.view.PercentImageView.Basics.BASICS_HEIGHT;
-import static com.yisan.base.view.PercentImageView.Basics.BASICS_WIDTH;
+import static com.yisan.base_ui.percent_imageview.PercentImageView.Basics.BASICS_HEIGHT;
+import static com.yisan.base_ui.percent_imageview.PercentImageView.Basics.BASICS_WIDTH;
 
 /**
  * @author：wzh

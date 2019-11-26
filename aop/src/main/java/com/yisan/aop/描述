@@ -1,0 +1,93 @@
+
+利用aop三剑客中的aspectJ框架
+
+aspectJ：面向切面编程
+
+1、
+在project的build.gradle中加入 classpath 'org.aspectj:aspectjtools:1.9.2'
+
+2、
+引入依赖： api 'org.aspectj:aspectjrt:1.9.2'
+
+3、
+
+如果在module中使用aop框架、需要在build.gradle配置
+
+//在构建工程时，执行编织
+import org.aspectj.tools.ajc.Main
+//在library中必须使用 libraryVariants
+project.android.libraryVariants.all { variant ->
+    JavaCompile javaCompile = variant.javaCompile
+    //在编译后 增加行为
+    javaCompile.doLast {
+        println "执行AspectJ编译器......"
+        String[] args = [
+                "-1.7",
+                //aspectJ 处理的源文件
+                "-inpath", javaCompile.destinationDir.toString(),
+                //输出目录，aspectJ处理完成后的输出目录
+                "-d", javaCompile.destinationDir.toString(),
+                //aspectJ 编译器的classpath aspectjtools
+                "-aspectpath", javaCompile.classpath.asPath,
+                //java的类查找路径
+                "-classpath", javaCompile.classpath.asPath,
+                //覆盖引导类的位置  android中使用android.jar 而不是jdk
+                "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
+        new Main().runMain(args, false)
+    }
+}
+
+如果在app主module中使用aop框架、配置如下代码
+
+//在构建工程时，执行编织
+import org.aspectj.tools.ajc.Main
+//在library中必须使用 libraryVariants
+project.android.applicationVariants.all { variant ->
+    JavaCompile javaCompile = variant.javaCompile
+    //在编译后 增加行为
+    javaCompile.doLast {
+        println "执行AspectJ编译器......"
+        String[] args = [
+                "-1.7",
+                //aspectJ 处理的源文件
+                "-inpath", javaCompile.destinationDir.toString(),
+                //输出目录，aspectJ处理完成后的输出目录
+                "-d", javaCompile.destinationDir.toString(),
+                //aspectJ 编译器的classpath aspectjtools
+                "-aspectpath", javaCompile.classpath.asPath,
+                //java的类查找路径
+                "-classpath", javaCompile.classpath.asPath,
+                //覆盖引导类的位置  android中使用android.jar 而不是jdk
+                "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
+        new Main().runMain(args, false)
+    }
+}
+
+注意：如果aspectj框架是另写在module的、那么必须在 .build中加入编译配置。 在APP中也要加入编译配置
+
+4、使用步骤
+    a、定义注解、必须是runntime因为用到了反射了
+            @Retention(RetentionPolicy.RUNTIME)
+            @Target(ElementType.METHOD)
+            public @interface IoThread {
+            }
+    b、定义Aspect方法、执行切面方法
+            @Aspect
+            public class IoThreadAspect {
+                /**
+                 * 执行的切面方法
+                 */
+                @Around("execution(@com.yisan.aop.annotation.IoThread void *(..))")
+                public void ioAspect(final ProceedingJoinPoint joinPoint) {
+                    Observable.create(new ObservableOnSubscribe<Void>() {
+                        @Override
+                        public void subscribe(ObservableEmitter<Void> emitter) throws Exception {
+                            try {
+                                joinPoint.proceed();
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).subscribeOn(Schedulers.io()).subscribe();
+                }
+            }

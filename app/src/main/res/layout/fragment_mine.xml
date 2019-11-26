@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
+    <com.yisan.base_ui.toolbar.YsToolBar
+        android:id="@+id/ys_tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="mine" />
+        android:layout_height="wrap_content"
+        app:ys_autoImmersion="true"
+        app:ys_bottomLineColor="@color/colorJumpToMain"
+        app:ys_bottomLineHeight="1px"
+        app:ys_clickToFinish="@id/iv_finish"
+        app:ys_statusBarColor="@color/colorAccent"
+        app:ys_statusBarVisible="true"
+        app:ys_toolBarLayout="@layout/common_tool_bar" />
 </LinearLayout>

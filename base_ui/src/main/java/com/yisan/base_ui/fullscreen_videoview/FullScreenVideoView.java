@@ -1,4 +1,4 @@
-package com.yisan.base.view;
+package com.yisan.base_ui.fullscreen_videoview;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -9,10 +9,11 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.yisan.aop.annotation.OnClickGap;
 import com.yisan.base.adapter.FixedFragmentPagerAdapter;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.BaseActivity;
-import com.yisan.base.view.PercentImageView;
+import com.yisan.base_ui.percent_imageview.PercentImageView;
 import com.yisan.sample.R;
 import com.yisan.sample.main.fragment.HomeFragment;
 import com.yisan.sample.main.fragment.KnowledgeNavigationFragment;
@@ -78,7 +79,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void afterBindView() {
         mViewPager.addOnPageChangeListener(this);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(5);
         adapter = new FixedFragmentPagerAdapter(getSupportFragmentManager());
         adapter.setFragmentList(
                 HomeFragment.create(),
@@ -92,7 +93,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         onPageSelected(0);
     }
 
-
+    @OnClickGap
     @OnClick({R.id.ll_bb_home, R.id.ll_bb_knowledge, R.id.ll_bb_wechat, R.id.ll_bb_project, R.id.ll_bb_mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {

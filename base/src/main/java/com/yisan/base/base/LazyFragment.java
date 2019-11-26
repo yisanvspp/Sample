@@ -2,7 +2,9 @@ package com.yisan.base.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -97,9 +99,15 @@ public abstract class LazyFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+    //必须调用父类的onCreateView方法
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
-    public final void afterBindView() {
+    public void afterBindView() {
         // 将 View 创建完成标志位设为 true
         mIsViewCreated = true;
         // 本次分发主要时用于分发默认tab可见状态，这种状况下它的生命周期是：

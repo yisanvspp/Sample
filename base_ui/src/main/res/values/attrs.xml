@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <declare-styleable name="Banner">
+        <attr name="delay_time" format="integer" />
+        <attr name="scroll_time" format="integer" />
+        <attr name="is_auto_play" format="boolean" />
+        <attr name="title_background" format="color|reference" />
+        <attr name="title_textcolor" format="color" />
+        <attr name="title_textsize" format="dimension" />
+        <attr name="title_height" format="dimension" />
+        <attr name="indicator_width" format="dimension" />
+        <attr name="indicator_height" format="dimension" />
+        <attr name="indicator_selected_width" format="dimension" />
+        <attr name="indicator_selected_height" format="dimension" />
+        <attr name="indicator_margin" format="dimension" />
+        <attr name="indicator_drawable_selected" format="reference" />
+        <attr name="indicator_drawable_unselected" format="reference" />
+        <attr name="banner_layout" format="reference" />
+        <attr name="banner_default_image" format="reference" />
+        <attr name="image_scale_type" format="enum">
+            <enum name="center" value="0" />
+            <enum name="center_crop" value="1" />
+            <enum name="center_inside" value="2" />
+            <enum name="fit_center" value="3" />
+            <enum name="fit_end" value="4" />
+            <enum name="fit_start" value="5" />
+            <enum name="fit_xy" value="6" />
+            <enum name="matrix" value="7" />
+        </attr>
+        <!--<attr name="indicator_animator" format="reference" />-->
+        <!--<attr name="indicator_animator_reverse" format="reference" />-->
+    </declare-styleable>
+
+
+    <declare-styleable name="YsToolBar">
+        <!--        设置状态栏-->
+        <attr name="ys_autoImmersion" format="boolean" />
+        <!--        背景层布局-->
+        <attr name="ys_backgroundLayerLayout" format="reference" />
+        <!--        背景层为图片-->
+        <attr name="ys_backgroundLayerImageRes" format="reference" />
+        <!--        主题层-->
+        <attr name="ys_statusBarVisible" format="boolean|reference" />
+        <attr name="ys_statusBarColor" format="color|reference" />
+        <attr name="ys_statusBarMode" format="enum">
+            <enum name="light" value="0" />
+            <enum name="dark" value="1" />
+        </attr>
+        <attr name="ys_clickToFinish" format="reference" />
+        <attr name="ys_toolBarLayout" format="reference" />
+        <attr name="ys_toolBarHeight" format="dimension|reference" />
+        <attr name="ys_bottomLineHeight" format="dimension|reference" />
+        <attr name="ys_bottomLineColor" format="color|reference" />
+        <attr name="ys_bottomLineResId" format="reference" />
+        <attr name="ys_bottomLineOutside" format="boolean|reference" />
+        <!--前景层布局-->
+        <attr name="ys_foregroundLayerLayout" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="PercentImageView" tools:ignore="ResourceName">
+        <attr name="piv_basics" format="enum">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
+        <attr name="piv_percent" format="float" />
+    </declare-styleable>
+
+
+</resources>

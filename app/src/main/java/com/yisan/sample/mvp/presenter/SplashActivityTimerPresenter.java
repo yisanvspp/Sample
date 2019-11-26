@@ -1,8 +1,8 @@
 package com.yisan.sample.mvp.presenter;
 
-import android.util.Log;
 
-import com.yisan.base.timer.CustomCountDownTimer;
+import com.yisan.base_ui.timer.CustomCountDownTimer;
+import com.yisan.base_ui.timer.ICountDownTimer;
 import com.yisan.mvp.base.BaseMvpPresenter;
 import com.yisan.sample.mvp.view.ISplashActivityContract;
 
@@ -13,6 +13,7 @@ import com.yisan.sample.mvp.view.ISplashActivityContract;
  * @date：2019/11/24 0024 下午 10:25
  */
 public class SplashActivityTimerPresenter extends BaseMvpPresenter<ISplashActivityContract.IView> implements ISplashActivityContract.IPresenter {
+
     private static final String TAG = "wzh_TimerPrestener";
 
     /**
@@ -38,17 +39,15 @@ public class SplashActivityTimerPresenter extends BaseMvpPresenter<ISplashActivi
 
         if (timer == null) {
 
-            timer = new CustomCountDownTimer(COUNT_DOWN_TIME, new CustomCountDownTimer.ICountDownTimer() {
+            timer = new CustomCountDownTimer(COUNT_DOWN_TIME, new ICountDownTimer() {
                 @Override
                 public void onTick(long time) {
 
                     getView().setTvTimer(String.valueOf(time));
-                    Log.e(TAG, "onTick: " + time);
                 }
 
                 @Override
                 public void onFinish() {
-                    Log.e(TAG, "onFinish: ");
                     getView().setTvTimer("跳过");
                 }
 

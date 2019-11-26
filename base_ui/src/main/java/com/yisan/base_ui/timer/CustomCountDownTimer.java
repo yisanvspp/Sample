@@ -1,11 +1,11 @@
-package com.yisan.base.timer;
+package com.yisan.base_ui.timer;
 
 import android.os.Handler;
 
 /**
  * @author：wzh
  * @description: 自定义倒计时
- * @packageName: com.yisan.base.timer
+ * @packageName: com.yisan.base_ui.timer
  * @date：2019/11/24 0024 下午 8:02
  */
 public class CustomCountDownTimer implements Runnable {
@@ -14,7 +14,6 @@ public class CustomCountDownTimer implements Runnable {
     private ICountDownTimer mListener;
     private Handler handler;
     private boolean isRun;
-
 
     /**
      * @param countDownTime 单位秒
@@ -65,18 +64,5 @@ public class CustomCountDownTimer implements Runnable {
 
         }
     }
-
-
-    public interface ICountDownTimer {
-        //倒计时
-        void onTick(long time);
-
-        //倒计时完成
-        void onFinish();
-
-        //取消倒计时
-        void onCancle();
-    }
-
 
 }

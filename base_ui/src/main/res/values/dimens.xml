@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="title_bar_height_def">44dp</dimen>
+
+    <dimen name="bottom_line_height_def">0dp</dimen>
+
+</resources>
