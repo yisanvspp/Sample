@@ -14,9 +14,9 @@ import org.aspectj.lang.annotation.Aspect;
 public class OnClickGap {
 
     /**
-     * 1000ms内不响应
+     * 500ms内不响应
      */
-    private static final int CLICK_GAP_RESPONSE = 1000;
+    private static final int CLICK_GAP_RESPONSE = 500;
     private static long clickGapTime = 0;
 
     /**

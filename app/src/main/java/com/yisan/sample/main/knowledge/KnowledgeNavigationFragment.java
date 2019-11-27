@@ -1,4 +1,4 @@
-package com.yisan.sample.main.fragment;
+package com.yisan.sample.main.knowledge;
 
 import android.Manifest;
 import android.view.View;

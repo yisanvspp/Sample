@@ -22,5 +22,6 @@
     <dimen name="text_auxiliary">13sp</dimen>
     <dimen name="text_notes">12sp</dimen>
     <dimen name="text_time">11sp</dimen>
+    <dimen name="indicator_height">56dp</dimen>
 
 </resources>

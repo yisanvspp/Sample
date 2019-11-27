@@ -15,11 +15,11 @@ import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.BaseActivity;
 import com.yisan.base_ui.percent_imageview.PercentImageView;
 import com.yisan.sample.R;
-import com.yisan.sample.main.fragment.HomeFragment;
-import com.yisan.sample.main.fragment.KnowledgeNavigationFragment;
-import com.yisan.sample.main.fragment.MineFragment;
-import com.yisan.sample.main.fragment.ProjectFragment;
-import com.yisan.sample.main.fragment.WxFragment;
+import com.yisan.sample.main.home.HomeFragment;
+import com.yisan.sample.main.knowledge.KnowledgeNavigationFragment;
+import com.yisan.sample.main.mine.MineFragment;
+import com.yisan.sample.main.project.ProjectFragment;
+import com.yisan.sample.main.wx.WxFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;

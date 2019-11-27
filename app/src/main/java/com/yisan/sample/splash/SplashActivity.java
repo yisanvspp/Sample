@@ -46,6 +46,11 @@ public class SplashActivity extends BaseActivity implements ISplashActivityContr
 
     }
 
+    @Override
+    protected boolean needTransparentStatusBar() {
+        return true;
+    }
+
     private void initTimerPresenter() {
         ISplashActivityContract.IPresenter timerPresenter = new SplashActivityTimerPresenter(this);
         timerPresenter.initTimer();
@@ -107,5 +112,11 @@ public class SplashActivity extends BaseActivity implements ISplashActivityContr
     @Override
     public void setTvTimer(String str) {
         mTvJumpToMain.setText(str);
+    }
+
+    @Override
+    public void startActivity() {
+        MainActivity.show(this);
+        finish();
     }
 }

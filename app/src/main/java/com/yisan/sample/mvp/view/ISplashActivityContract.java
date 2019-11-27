@@ -14,6 +14,8 @@ public interface ISplashActivityContract {
 
     interface IView extends IMvpView {
         void setTvTimer(String str);
+
+        void startActivity();
     }
 
     interface IPresenter extends ILifeCircle {

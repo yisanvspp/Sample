@@ -48,7 +48,10 @@ public class SplashActivityTimerPresenter extends BaseMvpPresenter<ISplashActivi
 
                 @Override
                 public void onFinish() {
+
                     getView().setTvTimer("跳过");
+
+                    getView().startActivity();
                 }
 
                 @Override

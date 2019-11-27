@@ -1,4 +1,4 @@
-package com.yisan.sample.main.fragment;
+package com.yisan.sample.main.wx;
 
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,15 +17,14 @@ import butterknife.BindView;
  * @packageName: com.yisan.sample.main.fragment
  * @date：2019/11/25 0025 下午 9:36
  */
-@ViewLayoutInject(R.layout.fragment_project)
-public class ProjectFragment extends LazyFragment {
-    private static final String TAG = "wzh_ProjectFragment";
+@ViewLayoutInject(R.layout.fragment_wx)
+public class WxFragment extends LazyFragment {
+    private static final String TAG = "wzh_WxFragment";
     @BindView(R.id.ys_tool_bar)
     YsToolBar mYsToolBar;
 
-
-    public static ProjectFragment create() {
-        return new ProjectFragment();
+    public static WxFragment create() {
+        return new WxFragment();
     }
 
 
@@ -55,8 +54,7 @@ public class ProjectFragment extends LazyFragment {
         TextView tvTitle = contentView.findViewById(R.id.tv_title);
         TextView tvRight = contentView.findViewById(R.id.tv_right);
         contentView.findViewById(R.id.iv_finish).setVisibility(View.INVISIBLE);
-        tvTitle.setText(R.string.main_project_fragment_title);
+        tvTitle.setText(R.string.main_wx_fragment_title);
         tvRight.setVisibility(View.INVISIBLE);
     }
-
 }
