@@ -69,4 +69,30 @@
     </declare-styleable>
 
 
+    <!--    ShadowContainer属性介绍：-->
+    <!--    containerShadowColor-->
+    <!--    阴影的颜色-->
+    <!--    containerCornerRadius-->
+    <!--    阴影的圆角半径，和View的background圆角保持一致即可-->
+    <!--    containerShadowRadius-->
+    <!--    阴影的模糊半径，值越大阴影越大-->
+    <!--    containerDeltaLength-->
+    <!--    阴影展示的区域位置-->
+    <!--    enable-->
+    <!--    是否展示阴影,通过修改enable可以实现阴影的显示与隐藏，达到类似于选择器的效果-->
+    <!--    deltaX-->
+    <!--    x方向的偏移量-->
+    <!--    deltaY-->
+    <!--    y方向的偏移量-->
+    <declare-styleable name="ShadowContainer">
+
+        <attr name="containerShadowColor" format="color" />
+        <attr name="containerShadowRadius" format="dimension" />
+        <attr name="containerDeltaLength" format="dimension" />
+        <attr name="containerCornerRadius" format="dimension" />
+        <attr name="deltaX" format="dimension" />
+        <attr name="deltaY" format="dimension" />
+        <attr name="enable" format="boolean" />
+    </declare-styleable>
+
 </resources>

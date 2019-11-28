@@ -12,7 +12,10 @@ import com.yisan.base.adapter.FixedFragmentPagerAdapter;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
 import com.yisan.sample.R;
+import com.yisan.sample.main.home.sub.SubFourFragment;
 import com.yisan.sample.main.home.sub.SubOneFragment;
+import com.yisan.sample.main.home.sub.SubThreeFragment;
+import com.yisan.sample.main.home.sub.SubTwoFragment;
 
 import butterknife.BindView;
 
@@ -80,9 +83,9 @@ public class HomeFragment extends LazyFragment {
         adapter.setTitles(tabs);
         adapter.setFragmentList(
                 SubOneFragment.create(),
-                SubOneFragment.create(),
-                SubOneFragment.create(),
-                SubOneFragment.create()
+                SubTwoFragment.create(),
+                SubThreeFragment.create(),
+                SubFourFragment.create()
         );
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);

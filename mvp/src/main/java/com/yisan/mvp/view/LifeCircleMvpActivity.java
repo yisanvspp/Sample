@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.yisan.mvp.IMvpView;
 import com.yisan.mvp.MvpControler;
@@ -12,7 +11,7 @@ import com.yisan.mvp.MvpControler;
 /**
  * Created by anson on 2018/10/28.
  */
-public class LifeCircleMvpActivity extends AppCompatActivity implements IMvpView {
+public class LifeCircleMvpActivity extends RxActivity implements IMvpView {
 
     private MvpControler mvpControler;
 
@@ -109,6 +108,5 @@ public class LifeCircleMvpActivity extends AppCompatActivity implements IMvpView
             mvpControler.onActivityResult(requestCode, resultCode, data);
         }
     }
-
 
 }

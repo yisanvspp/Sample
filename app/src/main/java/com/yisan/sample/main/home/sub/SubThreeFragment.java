@@ -1,5 +1,7 @@
 package com.yisan.sample.main.home.sub;
 
+import androidx.fragment.app.Fragment;
+
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
 import com.yisan.sample.R;
@@ -12,6 +14,10 @@ import com.yisan.sample.R;
  */
 @ViewLayoutInject(R.layout.fragment_hone_sub_one)
 public class SubThreeFragment extends LazyFragment {
+
+    public static Fragment create() {
+        return new SubThreeFragment();
+    }
 
     @Override
     protected void onFragmentPause() {

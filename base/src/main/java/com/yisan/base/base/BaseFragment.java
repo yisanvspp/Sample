@@ -22,6 +22,9 @@ public abstract class BaseFragment extends LifeCircleMvpFragment {
 
     protected Context mContext;
 
+    private View mView;
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -31,7 +34,6 @@ public abstract class BaseFragment extends LifeCircleMvpFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mView = null;
         ViewLayoutInject annotation = this.getClass().getAnnotation(ViewLayoutInject.class);
         if (annotation != null) {
             int mainlayoutid = annotation.value();

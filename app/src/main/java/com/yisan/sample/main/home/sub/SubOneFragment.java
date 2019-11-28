@@ -1,5 +1,7 @@
 package com.yisan.sample.main.home.sub;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +10,11 @@ import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
 import com.yisan.sample.R;
 import com.yisan.sample.main.adapter.StringAdapter;
+import com.yisan.sample.main.home.api.ArticleListApi;
+import com.yisan.sample.main.home.model.ArticleBean;
+import com.yisan.sample.main.home.model.ArticleListBean;
+import com.zhxu.library.http.HttpManager;
+import com.zhxu.library.listener.HttpOnNextListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +30,8 @@ import butterknife.BindView;
 @ViewLayoutInject(R.layout.fragment_hone_sub_one)
 public class SubOneFragment extends LazyFragment {
 
+    private static final String TAG = "SubOneFragment";
+
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
@@ -35,20 +44,27 @@ public class SubOneFragment extends LazyFragment {
 
     }
 
+    private HttpOnNextListener listener = new HttpOnNextListener() {
+        @Override
+        public void onNext(Object o) {
+            ArticleListBean bean = (ArticleListBean) o;
+
+            for (ArticleBean b : bean.datas) {
+                Log.e(TAG, "onNext: " + b.toString());
+            }
+        }
+    };
+
     @Override
     protected void onFragmentResume() {
-
-    }
-
-    @Override
-    protected void onFragmentFirstVisible() {
-
+        ArticleListApi articleListApi = new ArticleListApi<ArticleListBean>(listener, this);
+        HttpManager httpManager = HttpManager.getInstance();
+        httpManager.doHttpDeal(articleListApi);
     }
 
     @Override
     public void afterBindView() {
         super.afterBindView();
-
         initRecyclerViewList();
     }
 
@@ -65,5 +81,11 @@ public class SubOneFragment extends LazyFragment {
         adapter.setNewData(list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+
+
     }
 }

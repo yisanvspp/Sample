@@ -55,7 +55,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
     implementation project(":base")
-    implementation project(":mvp")
-    implementation project(":base_ui")
     implementation project(":aop")
+    implementation project(":rxretrofitlibrary")
 }
