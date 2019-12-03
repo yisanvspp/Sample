@@ -2,7 +2,8 @@ package com.yisan.sample.main.home.model;
 
 import android.text.TextUtils;
 
-import java.io.Serializable;
+import com.yisan.http.request.bean.BaseBean;
+
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * E-mail: goweii@163.com
  * GitHub: https://github.com/goweii
  */
-public class ArticleBean implements Serializable {
+public class ArticleBean extends BaseBean {
     /**
      * apkLink :
      * author : 玉刚说
@@ -68,6 +69,15 @@ public class ArticleBean implements Serializable {
     public List<TagsBean> tags;
     public int originId;
 
+
+    public boolean isFresh() {
+        return fresh;
+    }
+
+    public boolean isCollect() {
+        return collect;
+    }
+
     public String getAuthor() {
         if (!TextUtils.isEmpty(author)) {
             return author;
@@ -111,7 +121,7 @@ public class ArticleBean implements Serializable {
                 '}';
     }
 
-    public static class TagsBean implements Serializable {
+    public static class TagsBean extends BaseBean {
         /**
          * name : 公众号
          * url : /wxarticle/list/410/1

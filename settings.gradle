@@ -1,2 +1,2 @@
-include ':app', ':base', ':mvp', ':base_ui', ':aop', ':rxretrofitlibrary'
+include ':app', ':base', ':mvp', ':base_ui', ':aop', ':rxretrofitlibrary',  ':http'
 rootProject.name='Sample'

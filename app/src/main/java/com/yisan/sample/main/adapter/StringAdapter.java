@@ -28,7 +28,7 @@ public class StringAdapter extends RecyclerView.Adapter<StringAdapter.VH> {
     @NonNull
     @Override
     public StringAdapter.VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_home_fragment, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_home_fragment, parent, false);
         return new StringAdapter.VH(view);
     }
 

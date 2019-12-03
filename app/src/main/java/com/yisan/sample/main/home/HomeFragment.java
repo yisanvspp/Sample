@@ -1,6 +1,5 @@
 package com.yisan.sample.main.home;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -77,7 +76,7 @@ public class HomeFragment extends LazyFragment {
      */
     private void initMagicIndicator() {
 
-        String[] tabs = new String[]{"热搜榜", "toolbar", "aop", "bannerHeader"};
+        String[] tabs = new String[]{"首页", "体系", "公众号", "项目"};
 
         FixedFragmentPagerAdapter adapter = new FixedFragmentPagerAdapter(getChildFragmentManager());
         adapter.setTitles(tabs);
@@ -88,6 +87,7 @@ public class HomeFragment extends LazyFragment {
                 SubFourFragment.create()
         );
         mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(tabs.length);
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
@@ -117,7 +117,6 @@ public class HomeFragment extends LazyFragment {
             } else {
                 mToolBar.setAlpha(0.0f);
             }
-            Log.e(TAG, "initAppBarLayoutScroll: " + offsetY + " " + ratio);
         });
 
     }

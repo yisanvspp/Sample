@@ -1,25 +1,28 @@
 package com.yisan.sample.main.home.sub;
 
-import android.util.Log;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kennyc.view.MultiStateView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
+import com.yisan.http.RxHttp;
+import com.yisan.http.request.RequestClientManager;
+import com.yisan.http.request.RxRequest;
 import com.yisan.sample.R;
-import com.yisan.sample.main.adapter.StringAdapter;
-import com.yisan.sample.main.home.api.ArticleListApi;
-import com.yisan.sample.main.home.model.ArticleBean;
+import com.yisan.sample.api.HttpApiService;
+import com.yisan.sample.api.WanResponse;
+import com.yisan.sample.main.home.adapter.HomeArticleAdapter;
 import com.yisan.sample.main.home.model.ArticleListBean;
-import com.zhxu.library.http.HttpManager;
-import com.zhxu.library.listener.HttpOnNextListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.yisan.sample.utils.JsonUtil;
+import com.yisan.sample.utils.MultiStateUtils;
+import com.yisan.sample.utils.RvAnimUtils;
+import com.yisan.sample.utils.SmartRefreshUtils;
 
 import butterknife.BindView;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author：wzh
@@ -30,10 +33,22 @@ import butterknife.BindView;
 @ViewLayoutInject(R.layout.fragment_hone_sub_one)
 public class SubOneFragment extends LazyFragment {
 
-    private static final String TAG = "SubOneFragment";
+    private static final String TAG = "wzh_SubOneFragment";
+
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    private static final int PAGE_START = 0;
+    @BindView(R.id.msv)
+    MultiStateView mMsv;
+    @BindView(R.id.smart_refresh_layout)
+    SmartRefreshLayout mSmartRefreshLayout;
+    private HomeArticleAdapter articleAdapter;
+
+    private SmartRefreshUtils mSmartRefreshUtils;
+
+    private int currPage = PAGE_START;
+
 
     public static Fragment create() {
         return new SubOneFragment();
@@ -44,28 +59,127 @@ public class SubOneFragment extends LazyFragment {
 
     }
 
-    private HttpOnNextListener listener = new HttpOnNextListener() {
-        @Override
-        public void onNext(Object o) {
-            ArticleListBean bean = (ArticleListBean) o;
-
-            for (ArticleBean b : bean.datas) {
-                Log.e(TAG, "onNext: " + b.toString());
-            }
-        }
-    };
-
     @Override
     protected void onFragmentResume() {
-        ArticleListApi articleListApi = new ArticleListApi<ArticleListBean>(listener, this);
-        HttpManager httpManager = HttpManager.getInstance();
-        httpManager.doHttpDeal(articleListApi);
+    }
+
+
+    @Override
+    protected void onFragmentFirstVisible() {
     }
 
     @Override
     public void afterBindView() {
         super.afterBindView();
         initRecyclerViewList();
+
+        MultiStateUtils.toLoading(mMsv);
+        initData(currPage);
+        initListener();
+    }
+
+    private void initListener() {
+
+
+        mSmartRefreshLayout.setEnableAutoLoadMore(false);
+        mSmartRefreshLayout.setEnableOverScrollBounce(true);
+        mSmartRefreshLayout.setEnableRefresh(true);
+        mSmartRefreshLayout.setEnablePureScrollMode(false);
+        //下拉刷新
+        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
+            //必须设置超时时间
+            refreshLayout.finishRefresh((int) RxHttp.getRequestSetting().getTimeout(), false, false);
+            //请求数据
+            //刷新数据从起始页开始
+            currPage = PAGE_START;
+            initData(currPage);
+
+        });
+
+        //上拉加载更多-使用适配器的加载更多
+        articleAdapter.setEnableLoadMore(false);
+        mSmartRefreshLayout.setEnableLoadMore(false);
+        articleAdapter.setOnLoadMoreListener(() -> {
+            initData(currPage);
+
+        }, mRecyclerView);
+    }
+
+    private void initData(int page) {
+
+        RxHttp.request(RequestClientManager.getService(HttpApiService.class).getArticleList(page)
+                , "article/list/" + currPage + "/json")
+                .request(new RxRequest.ResultCallback<ArticleListBean>() {
+                    @Override
+                    public void onStart(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(int code, ArticleListBean data) {
+
+                        currPage = data.curPage + PAGE_START;
+
+                        if (data.size > 0) {
+                            if (data.curPage == 1) {
+                                MultiStateUtils.toContent(mMsv);
+                                articleAdapter.setNewData(data.datas);
+                            } else {
+                                articleAdapter.addData(data.datas);
+                                articleAdapter.loadMoreComplete();
+                            }
+                        } else {
+                            MultiStateUtils.toEmpty(mMsv);
+                        }
+
+                        if (data.over) {
+                            articleAdapter.loadMoreEnd();
+                        } else {
+                            if (!articleAdapter.isLoadMoreEnable()) {
+                                articleAdapter.setEnableLoadMore(true);
+                            }
+                        }
+
+                        mSmartRefreshLayout.finishRefresh();
+                        mSmartRefreshLayout.finishLoadMore();
+                    }
+
+                    @Override
+                    public void onFailed(int code, String msg) {
+                        MultiStateUtils.toError(mMsv);
+                        mSmartRefreshUtils.fail();
+                        articleAdapter.loadMoreFail();
+                    }
+
+                    @Override
+                    public void onCacheSuccess(String data) {
+                        try {
+
+                            WanResponse wanResponse = JsonUtil.parserArticleListJson(data);
+
+                            ArticleListBean articleListBean = (ArticleListBean) wanResponse.getData();
+
+                            if (articleListBean.size > 0) {
+                                MultiStateUtils.toContent(mMsv);
+                            } else {
+                                MultiStateUtils.toEmpty(mMsv);
+                            }
+
+                            if (articleAdapter != null) {
+                                articleAdapter.setNewData(articleListBean.datas);
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
     }
 
     /**
@@ -73,19 +187,12 @@ public class SubOneFragment extends LazyFragment {
      */
     private void initRecyclerViewList() {
 
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            list.add("第" + i);
-        }
-        StringAdapter adapter = new StringAdapter();
-        adapter.setNewData(list);
+        articleAdapter = new HomeArticleAdapter(getContext());
+        RvAnimUtils.setAnim(articleAdapter, RvAnimUtils.RvAnim.ALPHAIN);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onFragmentFirstVisible() {
-
+        mRecyclerView.setAdapter(articleAdapter);
 
     }
+
+
 }

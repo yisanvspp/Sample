@@ -1,10 +1,10 @@
 package com.yisan.sample.main.knowledge;
 
 import android.Manifest;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,7 +26,9 @@ import butterknife.BindView;
  */
 @ViewLayoutInject(R.layout.fragment_knowledge)
 public class KnowledgeNavigationFragment extends LazyFragment {
+
     private static final String TAG = "wzh_Knowledge";
+
     @BindView(R.id.ys_tool_bar)
     YsToolBar mYsToolBar;
 
@@ -55,8 +57,9 @@ public class KnowledgeNavigationFragment extends LazyFragment {
         super.afterBindView();
         initToolBar();
 
-        getLocation();
+
     }
+
 
     private void initToolBar() {
         LinearLayout contentView = mYsToolBar.getContentView();
@@ -70,10 +73,11 @@ public class KnowledgeNavigationFragment extends LazyFragment {
 
 
     @PermissionNeed(
-            permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}
+            permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE}
             , requestCode = 1)
     private void getLocation() {
-        Toast.makeText(getContext(), "成功授权", Toast.LENGTH_SHORT).show();
+
+        Log.e(TAG, "成功授权");
     }
 
 
@@ -81,7 +85,7 @@ public class KnowledgeNavigationFragment extends LazyFragment {
     private void permissionDenied(int requestCode) {
         switch (requestCode) {
             case 1:
-                Toast.makeText(getContext(), "当次拒绝", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "当次拒绝");
                 break;
             default:
                 break;
@@ -92,7 +96,7 @@ public class KnowledgeNavigationFragment extends LazyFragment {
     private void permissionDeniedForever(int requestCode) {
         switch (requestCode) {
             case 1:
-                Toast.makeText(getContext(), "永久拒绝", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "永久拒绝");
                 break;
             default:
                 break;

@@ -95,4 +95,16 @@
         <attr name="enable" format="boolean" />
     </declare-styleable>
 
+
+    <declare-styleable name="RevealLayout">
+        <attr name="rl_checkedLayout" format="reference" />
+        <attr name="rl_uncheckedLayout" format="reference" />
+        <attr name="rl_checked" format="boolean" />
+        <attr name="rl_animDuration" format="integer" />
+        <attr name="rl_checkWithExpand" format="boolean" />
+        <attr name="rl_uncheckWithExpand" format="boolean" />
+        <attr name="rl_allowRevert" format="boolean" />
+    </declare-styleable>
+
+
 </resources>

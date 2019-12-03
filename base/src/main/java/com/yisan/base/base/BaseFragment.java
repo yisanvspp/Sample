@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.yisan.base.annotation.ViewLayoutInject;
-import com.yisan.mvp.view.LifeCircleMvpFragment;
+import com.yisan.mvp.view.RxFragment;
 
 import butterknife.ButterKnife;
 
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by anson on 2018/7/14.
  */
 
-public abstract class BaseFragment extends LifeCircleMvpFragment {
+public abstract class BaseFragment extends RxFragment {
 
 
     protected Context mContext;
