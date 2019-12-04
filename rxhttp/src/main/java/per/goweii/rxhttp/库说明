@@ -1,0 +1,4 @@
+该库基于 :
+
+ retrofit + okhhtp 封装的请求库  实现了get请求缓存
+

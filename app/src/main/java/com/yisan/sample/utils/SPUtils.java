@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 
-import com.zhxu.library.utils.ContextUtils;
+import com.yisan.sample.YsApplication;
 
 /**
  * 共享参数类
@@ -32,7 +32,7 @@ public class SPUtils {
     }
 
     private static SharedPreferences getSharedPreferences(@NonNull String name) {
-        return ContextUtils.getAppContext().getSharedPreferences(name, Context.MODE_PRIVATE);
+        return YsApplication.getAppContext().getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
     private static SharedPreferences getDefaultSharedPreferences() {
@@ -96,7 +96,7 @@ public class SPUtils {
 
     private static class SPHolder {
         private static final SharedPreferences INSTANCE =
-                PreferenceManager.getDefaultSharedPreferences(ContextUtils.getAppContext());
+                PreferenceManager.getDefaultSharedPreferences(YsApplication.getAppContext());
     }
 
 

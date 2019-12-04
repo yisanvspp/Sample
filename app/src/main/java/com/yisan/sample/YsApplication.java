@@ -3,15 +3,17 @@ package com.yisan.sample;
 import android.app.Application;
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.yisan.http.RxHttp;
-import com.yisan.http.request.setting.DefaultRequestSetting;
-import com.zhxu.library.utils.ContextUtils;
+import com.yisan.base.utils.Utils;
+import com.yisan.sample.http.RxHttpRequestSetting;
+import com.yisan.sample.http.WanCache;
+
+import per.goweii.rxhttp.core.RxHttp;
 
 /**
  * @author：wzh
@@ -22,6 +24,8 @@ import com.zhxu.library.utils.ContextUtils;
 public class YsApplication extends Application {
 
     private static Context mAppContext;
+
+    private static PersistentCookieJar mCookieJar = null;
 
 
     //下拉刷新上拉加载更多、全局设定
@@ -45,55 +49,33 @@ public class YsApplication extends Application {
         SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context));
     }
 
+    public static Context getAppContext() {
+        return mAppContext;
+    }
+
+    public static PersistentCookieJar getCookieJar() {
+        //okhttp cookie的get缓存
+
+        if (mCookieJar == null) {
+            mCookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(getAppContext()));
+        }
+        return mCookieJar;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAppContext = this.getApplicationContext();
 
-        ContextUtils.init(this);
+        Utils.init(this);
+
+        mAppContext = this.getApplicationContext();
 
         RxHttp.init(this);
 
-        RxHttp.initRequestSetting(new DefaultRequestSetting() {
-            @NonNull
-            @Override
-            public String getBaseUrl() {
-                return Constants.BASE_URL;
-            }
+        RxHttp.initRequest(new RxHttpRequestSetting(getCookieJar()));
 
-            @Override
-            public int getSuccessCode() {
-                return 0;
-            }
-
-            @Override
-            public boolean isHttpsRequest() {
-                return true;
-            }
-
-            @Override
-            public boolean useCache() {
-                return true;
-            }
-
-            @Nullable
-            @Override
-            public Context getContext() {
-                return mAppContext;
-            }
-
-            @Override
-            public boolean isDebug() {
-                return true;
-            }
-        });
-
+        WanCache.init();
     }
 
-
-    public Context getAppContext() {
-        return mAppContext;
-    }
 }

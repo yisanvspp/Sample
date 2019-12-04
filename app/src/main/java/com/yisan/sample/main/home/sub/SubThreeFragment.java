@@ -1,5 +1,7 @@
 package com.yisan.sample.main.home.sub;
 
+import android.os.Handler;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,17 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kennyc.view.MultiStateView;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
-import com.yisan.http.RxHttp;
-import com.yisan.http.request.RequestClientManager;
-import com.yisan.http.request.RxRequest;
 import com.yisan.sample.R;
-import com.yisan.sample.api.HttpApiService;
 import com.yisan.sample.main.home.adapter.ArticleAdapter;
-import com.yisan.sample.main.home.model.ArticleListBean;
 import com.yisan.sample.utils.MultiStateUtils;
 
 import butterknife.BindView;
-import io.reactivex.disposables.Disposable;
 
 /**
  * @author：wzh
@@ -34,6 +30,14 @@ public class SubThreeFragment extends LazyFragment {
     MultiStateView mMsv;
     private ArticleAdapter adapter;
 
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            MultiStateUtils.toEmpty(mMsv);
+
+        }
+    };
+
     public static Fragment create() {
         return new SubThreeFragment();
     }
@@ -48,47 +52,12 @@ public class SubThreeFragment extends LazyFragment {
 
     }
 
+    private Handler handler = new android.os.Handler();
+
     @Override
     protected void onFragmentFirstVisible() {
+        MultiStateUtils.toLoading(mMsv);
         initData();
-    }
-
-    private void initData() {
-        RxHttp.request(RequestClientManager.getService(HttpApiService.class).getWxArticleList(408, 1), "wxarticle" +
-                "/list" +
-                "/408" +
-                "/1/json").request(new RxRequest.ResultCallback<ArticleListBean>() {
-            @Override
-            public void onStart(Disposable d) {
-                MultiStateUtils.toLoading(mMsv);
-            }
-
-            @Override
-            public void onSuccess(int code, ArticleListBean data) {
-
-                if (data.size > 0) {
-                    MultiStateUtils.toContent(mMsv);
-                } else {
-                    MultiStateUtils.toEmpty(mMsv);
-                }
-                adapter.setNewData(data.datas);
-            }
-
-            @Override
-            public void onFailed(int code, String msg) {
-                MultiStateUtils.toError(mMsv);
-            }
-
-            @Override
-            public void onCacheSuccess(String data) {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        });
     }
 
 
@@ -96,6 +65,12 @@ public class SubThreeFragment extends LazyFragment {
     public void afterBindView() {
         super.afterBindView();
         initRecyclerViewList();
+    }
+
+    private void initData() {
+
+        handler.postDelayed(runnable, 2000);
+
     }
 
     /**
@@ -107,5 +82,11 @@ public class SubThreeFragment extends LazyFragment {
         mRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mRv.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
 }

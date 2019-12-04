@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kennyc.view.MultiStateView;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
-import com.yisan.http.RxHttp;
-import com.yisan.http.request.RequestClientManager;
-import com.yisan.http.request.RxRequest;
 import com.yisan.sample.R;
-import com.yisan.sample.api.HttpApiService;
+import com.yisan.sample.http.RequestListener;
 import com.yisan.sample.main.home.adapter.KnowledgeAdapter;
+import com.yisan.sample.main.home.request.SubTwoRequest;
 import com.yisan.sample.main.knowledge.model.ChapterBean;
 import com.yisan.sample.utils.MultiStateUtils;
 
@@ -20,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
+import per.goweii.rxhttp.core.RxLife;
 
 /**
  * @author：wzh
@@ -35,6 +34,7 @@ public class SubTwoFragment extends LazyFragment {
     @BindView(R.id.msv)
     MultiStateView mMsv;
     private KnowledgeAdapter adapter;
+    private RxLife rxLife;
 
     public static Fragment create() {
 
@@ -53,6 +53,7 @@ public class SubTwoFragment extends LazyFragment {
 
     @Override
     protected void onFragmentFirstVisible() {
+        MultiStateUtils.toLoading(mMsv);
         initData();
 
     }
@@ -60,6 +61,7 @@ public class SubTwoFragment extends LazyFragment {
     @Override
     public void afterBindView() {
         super.afterBindView();
+        rxLife = RxLife.create();
         initRecyclerViewList();
     }
 
@@ -76,11 +78,9 @@ public class SubTwoFragment extends LazyFragment {
 
     private void initData() {
 
-        RxHttp.request(RequestClientManager.getService(HttpApiService.class).getKnowledgeList(), "tree/json").request(new RxRequest.ResultCallback<List<ChapterBean>>() {
-
+        SubTwoRequest.getKnowledgeList(rxLife, new RequestListener<List<ChapterBean>>() {
             @Override
             public void onStart(Disposable d) {
-                MultiStateUtils.toLoading(mMsv);
             }
 
             @Override
@@ -96,13 +96,8 @@ public class SubTwoFragment extends LazyFragment {
             }
 
             @Override
-            public void onFailed(int code, String msg) {
+            public void onError(int code, String msg) {
                 MultiStateUtils.toError(mMsv);
-            }
-
-            @Override
-            public void onCacheSuccess(String data) {
-
             }
 
             @Override

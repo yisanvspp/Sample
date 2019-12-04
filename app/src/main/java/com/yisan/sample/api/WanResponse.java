@@ -1,10 +1,11 @@
 package com.yisan.sample.api;
 
-import com.yisan.http.request.bean.BaseResponse;
+
+import per.goweii.rxhttp.request.base.BaseResponse;
 
 /**
  * @author：wzh
- * @description:
+ * @description: 基类
  * @packageName: com.yisan.sample.api
  * @date：2019/12/1 0001 上午 12:17
  */

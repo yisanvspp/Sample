@@ -8,21 +8,19 @@ import com.kennyc.view.MultiStateView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yisan.base.annotation.ViewLayoutInject;
 import com.yisan.base.base.LazyFragment;
-import com.yisan.http.RxHttp;
-import com.yisan.http.request.RequestClientManager;
-import com.yisan.http.request.RxRequest;
 import com.yisan.sample.R;
-import com.yisan.sample.api.HttpApiService;
-import com.yisan.sample.api.WanResponse;
+import com.yisan.sample.http.RequestListener;
 import com.yisan.sample.main.home.adapter.HomeArticleAdapter;
 import com.yisan.sample.main.home.model.ArticleListBean;
-import com.yisan.sample.utils.JsonUtil;
+import com.yisan.sample.main.home.request.HomeRequest;
 import com.yisan.sample.utils.MultiStateUtils;
 import com.yisan.sample.utils.RvAnimUtils;
 import com.yisan.sample.utils.SmartRefreshUtils;
 
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
+import per.goweii.rxhttp.core.RxHttp;
+import per.goweii.rxhttp.core.RxLife;
 
 /**
  * @author：wzh
@@ -33,21 +31,35 @@ import io.reactivex.disposables.Disposable;
 @ViewLayoutInject(R.layout.fragment_hone_sub_one)
 public class SubOneFragment extends LazyFragment {
 
-    private static final String TAG = "wzh_SubOneFragment";
-
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-    private static final int PAGE_START = 0;
     @BindView(R.id.msv)
     MultiStateView mMsv;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
+
+    private static final String TAG = "wzh_SubOneFragment";
+    /**
+     * 数据其实页
+     */
+    private static final int PAGE_START = 0;
+    /**
+     * 适配器
+     */
     private HomeArticleAdapter articleAdapter;
-
+    /**
+     * 刷新控件工具类
+     */
     private SmartRefreshUtils mSmartRefreshUtils;
-
+    /**
+     * 当前数据的page页
+     */
     private int currPage = PAGE_START;
+
+
+    private String requestUrl;
+    private RxLife rxLife;
 
 
     public static Fragment create() {
@@ -71,10 +83,16 @@ public class SubOneFragment extends LazyFragment {
     @Override
     public void afterBindView() {
         super.afterBindView();
+        if (rxLife == null) {
+            rxLife = RxLife.create();
+        }
+
         initRecyclerViewList();
 
         MultiStateUtils.toLoading(mMsv);
+
         initData(currPage);
+
         initListener();
     }
 
@@ -92,6 +110,7 @@ public class SubOneFragment extends LazyFragment {
             //请求数据
             //刷新数据从起始页开始
             currPage = PAGE_START;
+            //加载数据
             initData(currPage);
 
         });
@@ -101,85 +120,59 @@ public class SubOneFragment extends LazyFragment {
         mSmartRefreshLayout.setEnableLoadMore(false);
         articleAdapter.setOnLoadMoreListener(() -> {
             initData(currPage);
-
         }, mRecyclerView);
+
+
     }
 
     private void initData(int page) {
 
-        RxHttp.request(RequestClientManager.getService(HttpApiService.class).getArticleList(page)
-                , "article/list/" + currPage + "/json")
-                .request(new RxRequest.ResultCallback<ArticleListBean>() {
-                    @Override
-                    public void onStart(Disposable d) {
+        HomeRequest.getArticleList(rxLife, page, true, new RequestListener<ArticleListBean>() {
+            @Override
+            public void onStart(Disposable d) {
+            }
 
+            @Override
+            public void onSuccess(int code, ArticleListBean data) {
+
+                currPage = data.curPage + PAGE_START;
+
+                if (data.size > 0) {
+                    if (data.curPage == 1) {
+                        MultiStateUtils.toContent(mMsv);
+                        articleAdapter.setNewData(data.datas);
+                    } else {
+                        articleAdapter.addData(data.datas);
+                        articleAdapter.loadMoreComplete();
                     }
+                } else {
+                    MultiStateUtils.toEmpty(mMsv);
+                }
 
-                    @Override
-                    public void onSuccess(int code, ArticleListBean data) {
-
-                        currPage = data.curPage + PAGE_START;
-
-                        if (data.size > 0) {
-                            if (data.curPage == 1) {
-                                MultiStateUtils.toContent(mMsv);
-                                articleAdapter.setNewData(data.datas);
-                            } else {
-                                articleAdapter.addData(data.datas);
-                                articleAdapter.loadMoreComplete();
-                            }
-                        } else {
-                            MultiStateUtils.toEmpty(mMsv);
-                        }
-
-                        if (data.over) {
-                            articleAdapter.loadMoreEnd();
-                        } else {
-                            if (!articleAdapter.isLoadMoreEnable()) {
-                                articleAdapter.setEnableLoadMore(true);
-                            }
-                        }
-
-                        mSmartRefreshLayout.finishRefresh();
-                        mSmartRefreshLayout.finishLoadMore();
+                if (data.over) {
+                    articleAdapter.loadMoreEnd();
+                } else {
+                    if (!articleAdapter.isLoadMoreEnable()) {
+                        articleAdapter.setEnableLoadMore(true);
                     }
+                }
 
-                    @Override
-                    public void onFailed(int code, String msg) {
-                        MultiStateUtils.toError(mMsv);
-                        mSmartRefreshUtils.fail();
-                        articleAdapter.loadMoreFail();
-                    }
+                mSmartRefreshLayout.finishRefresh();
+                mSmartRefreshLayout.finishLoadMore();
+            }
 
-                    @Override
-                    public void onCacheSuccess(String data) {
-                        try {
+            @Override
+            public void onError(int code, String msg) {
+                MultiStateUtils.toError(mMsv);
+                mSmartRefreshUtils.fail();
+                articleAdapter.loadMoreFail();
+            }
 
-                            WanResponse wanResponse = JsonUtil.parserArticleListJson(data);
+            @Override
+            public void onFinish() {
 
-                            ArticleListBean articleListBean = (ArticleListBean) wanResponse.getData();
-
-                            if (articleListBean.size > 0) {
-                                MultiStateUtils.toContent(mMsv);
-                            } else {
-                                MultiStateUtils.toEmpty(mMsv);
-                            }
-
-                            if (articleAdapter != null) {
-                                articleAdapter.setNewData(articleListBean.datas);
-                            }
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                    }
-                });
+            }
+        });
     }
 
     /**
@@ -195,4 +188,11 @@ public class SubOneFragment extends LazyFragment {
     }
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (rxLife != null) {
+            rxLife.destroy();
+        }
+    }
 }

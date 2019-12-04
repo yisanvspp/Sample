@@ -2,9 +2,9 @@ package com.yisan.sample.main.home.model;
 
 import android.text.TextUtils;
 
-import com.yisan.http.request.bean.BaseBean;
-
 import java.util.List;
+
+import per.goweii.rxhttp.request.base.BaseBean;
 
 /**
  * @author CuiZhen

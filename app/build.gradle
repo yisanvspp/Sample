@@ -56,6 +56,5 @@ dependencies {
 
     implementation project(":base")
     implementation project(":aop")
-    implementation project(":rxretrofitlibrary")
-    implementation project(":http")
+    implementation project(":rxhttp")
 }

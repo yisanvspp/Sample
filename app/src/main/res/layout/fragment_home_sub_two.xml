@@ -10,13 +10,20 @@
         android:id="@+id/msv"
         style="@style/StateView">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            android:layout_height="wrap_content"
+            app:srlEnablePureScrollMode="true">
 
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </com.kennyc.view.MultiStateView>
 

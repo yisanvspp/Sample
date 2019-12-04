@@ -50,5 +50,9 @@ dependencies {
 
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 
+    api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
+    api 'com.jakewharton:disklrucache:2.0.2'
+
     api project(":mvp")
 }
