@@ -1,2 +1,2 @@
-include ':app', ':base', ':mvp', ':base_ui', ':aop', ':rxhttp'
+include ':app', ':base', ':mvp', ':base_ui', ':aop', ':rxhttp', ':crash'
 rootProject.name='Sample'

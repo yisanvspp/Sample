@@ -8,5 +8,11 @@
     <string name="main_know_fragment_title">体系</string>
 
     <string name="bottom_navigation_behavior" tools:keep="@string/bottom_navigation_behavior">com.yisan.base.design.BottomNavigationBehavior</string>
+    <string name="close_app">关闭App</string>
+    <string name="unknown_exception">未知异常</string>
+    <string name="error_details">错误详情</string>
+    <string name="error_occurred">发生错误</string>
+    <string name="restart_app">重启App</string>
+    <string name="error_title">奔溃界面</string>
 
 </resources>

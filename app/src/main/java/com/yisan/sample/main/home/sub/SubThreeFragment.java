@@ -65,6 +65,7 @@ public class SubThreeFragment extends LazyFragment {
     public void afterBindView() {
         super.afterBindView();
         initRecyclerViewList();
+
     }
 
     private void initData() {

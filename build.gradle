@@ -15,7 +15,8 @@ buildscript {
         classpath 'org.aspectj:aspectjtools:1.9.2'
         //green-dao数据库
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
-
+        // 腾讯bugly
+        classpath 'com.tencent.bugly:symtabfileuploader:2.1.0'
     }
 }
 

@@ -3,6 +3,8 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
     defaultConfig {
         applicationId "com.yisan.sample"
         minSdkVersion 21
@@ -11,6 +13,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         renderscriptSupportModeEnabled true
+
+        ndk {
+            abiFilters "armeabi"
+        }
     }
     buildTypes {
         release {
@@ -57,4 +63,5 @@ dependencies {
     implementation project(":base")
     implementation project(":aop")
     implementation project(":rxhttp")
+    implementation project(":crash")
 }

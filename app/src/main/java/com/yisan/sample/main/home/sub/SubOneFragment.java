@@ -15,7 +15,6 @@ import com.yisan.sample.main.home.model.ArticleListBean;
 import com.yisan.sample.main.home.request.HomeRequest;
 import com.yisan.sample.utils.MultiStateUtils;
 import com.yisan.sample.utils.RvAnimUtils;
-import com.yisan.sample.utils.SmartRefreshUtils;
 
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
@@ -39,7 +38,6 @@ public class SubOneFragment extends LazyFragment {
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
 
-    private static final String TAG = "wzh_SubOneFragment";
     /**
      * 数据其实页
      */
@@ -49,16 +47,10 @@ public class SubOneFragment extends LazyFragment {
      */
     private HomeArticleAdapter articleAdapter;
     /**
-     * 刷新控件工具类
-     */
-    private SmartRefreshUtils mSmartRefreshUtils;
-    /**
      * 当前数据的page页
      */
     private int currPage = PAGE_START;
 
-
-    private String requestUrl;
     private RxLife rxLife;
 
 
@@ -118,9 +110,7 @@ public class SubOneFragment extends LazyFragment {
         //上拉加载更多-使用适配器的加载更多
         articleAdapter.setEnableLoadMore(false);
         mSmartRefreshLayout.setEnableLoadMore(false);
-        articleAdapter.setOnLoadMoreListener(() -> {
-            initData(currPage);
-        }, mRecyclerView);
+        articleAdapter.setOnLoadMoreListener(() -> initData(currPage), mRecyclerView);
 
 
     }
@@ -164,7 +154,8 @@ public class SubOneFragment extends LazyFragment {
             @Override
             public void onError(int code, String msg) {
                 MultiStateUtils.toError(mMsv);
-                mSmartRefreshUtils.fail();
+                mSmartRefreshLayout.finishRefresh(false);
+                mSmartRefreshLayout.finishLoadMore(false);
                 articleAdapter.loadMoreFail();
             }
 

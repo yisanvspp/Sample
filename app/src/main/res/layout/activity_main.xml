@@ -13,13 +13,13 @@
         android:overScrollMode="never"
         android:scrollbars="none" />
 
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_bar_height"
-        android:layout_gravity="bottom"
-        android:visibility="visible"
-        app:realtimeBlurRadius="16dp"
-        app:realtimeOverlayColor="@color/background_alpha" />
+    <!--    <com.github.mmin18.widget.RealtimeBlurView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/bottom_bar_height"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:realtimeBlurRadius="16dp"-->
+    <!--        app:realtimeOverlayColor="@color/background_alpha" />-->
 
 
     <LinearLayout
